@@ -1,7 +1,6 @@
 # Sistema de Gestão de Biblioteca com Autenticação de Perfis
 
 Este é um sistema completo de gerenciamento de biblioteca física desenvolvido em **Java**, focado na aplicação prática dos pilares da Orientação a Objetos e na estruturação limpa de código.
-CLIQUE AQUI PARA TESTAR NO SEU NAVEGADOR:
 **[Clique aqui para acessar a página inicial do sistema no navegador](https://test-data-tool--nynyx23.replit.app)
 
 
