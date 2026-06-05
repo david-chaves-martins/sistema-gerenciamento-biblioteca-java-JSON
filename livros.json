@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "titulo": "O Senhor dos Anéis: A Sociedade do Anel",
+    "autor": "J.R.R. Tolkien",
+    "anoPublicacao": "29/07/1954",
+    "status": true
+  },
+  {
+    "id": 2,
+    "titulo": "1984",
+    "autor": "George Orwell",
+    "anoPublicacao": "08/06/1949",
+    "status": true
+  },
+  {
+    "id": 3,
+    "titulo": "O Pequeno Príncipe",
+    "autor": "Antoine de Saint-Exupéry",
+    "anoPublicacao": "06/04/1943",
+    "status": false
+  },
+  {
+    "id": 4,
+    "titulo": "Dom Casmurro",
+    "autor": "Machado de Assis",
+    "anoPublicacao": "1899",
+    "status": true
+  },
+  {
+    "id": 5,
+    "titulo": "Harry Potter e a Pedra Filosofal",
+    "autor": "J.K. Rowling",
+    "anoPublicacao": "26/06/1997",
+    "status": false
+  },
+  {
+    "id": 6,
+    "titulo": "O Hobbit",
+    "autor": "J.R.R. Tolkien",
+    "anoPublicacao": "21/09/1937",
+    "status": true
+  },
+  {
+    "id": 7,
+    "titulo": "Admirável Mundo Novo",
+    "autor": "Aldous Huxley",
+    "anoPublicacao": "1932",
+    "status": true
+  },
+  {
+    "id": 8,
+    "titulo": "Crónica de uma Morte Anunciada",
+    "autor": "Gabriel García Márquez",
+    "anoPublicacao": "1981",
+    "status": true
+  },
+  {
+    "id": 9,
+    "titulo": "O Alquimista",
+    "autor": "Paulo Coelho",
+    "anoPublicacao": "1988",
+    "status": true
+  },
+  {
+    "id": 10,
+    "titulo": "Fahrenheit 451",
+    "autor": "Ray Bradbury",
+    "anoPublicacao": "1953",
+    "status": true
+  }
+]

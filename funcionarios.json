@@ -1,0 +1,35 @@
+[
+  {
+    "cargo": "Diretor",
+    "matricula": "MAT-51",
+    "id": 51,
+    "nome": "Carlos",
+    "cpf": "999.888.777-66",
+    "idade": 38,
+    "sobrenome": "Souza",
+    "email": "carlos@biblioteca.com",
+    "senha": "admin"
+  },
+  {
+    "cargo": "Bibliotecária Chefe",
+    "matricula": "MAT-52",
+    "id": 52,
+    "nome": "Maria",
+    "cpf": "888.777.666-55",
+    "idade": 29,
+    "sobrenome": "Fernandes",
+    "email": "maria@biblioteca.com",
+    "senha": "123"
+  },
+  {
+    "cargo": "Assistente de Acervo",
+    "matricula": "MAT-53",
+    "id": 53,
+    "nome": "Ricardo",
+    "cpf": "777.666.555-44",
+    "idade": 24,
+    "sobrenome": "Almeida",
+    "email": "ricardo@biblioteca.com",
+    "senha": "ric"
+  }
+]

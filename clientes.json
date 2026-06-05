@@ -1,0 +1,84 @@
+[
+  {
+    "carteirinha": "CART-11",
+    "livrosEmprestados": [],
+    "id": 11,
+    "nome": "João",
+    "cpf": "111.222.333-44",
+    "idade": 25,
+    "sobrenome": "Silva",
+    "email": "joao@email.com",
+    "senha": "senha123"
+  },
+  {
+    "carteirinha": "CART-12",
+    "livrosEmprestados": [
+      {
+        "id": 3,
+        "titulo": "O Pequeno Príncipe",
+        "autor": "Antoine de Saint-Exupéry",
+        "anoPublicacao": "06/04/1943",
+        "status": false
+      }
+    ],
+    "id": 12,
+    "nome": "Pedro",
+    "cpf": "222.333.444-55",
+    "idade": 19,
+    "sobrenome": "Santos",
+    "email": "pedro@email.com",
+    "senha": "987"
+  },
+  {
+    "carteirinha": "CART-13",
+    "livrosEmprestados": [
+      {
+        "id": 5,
+        "titulo": "Harry Potter e a Pedra Filosofal",
+        "autor": "J.K. Rowling",
+        "anoPublicacao": "26/06/1997",
+        "status": false
+      }
+    ],
+    "id": 13,
+    "nome": "Ana",
+    "cpf": "333.444.555-66",
+    "idade": 31,
+    "sobrenome": "Oliveira",
+    "email": "ana.olivia@email.com",
+    "senha": "ana"
+  },
+  {
+    "carteirinha": "CART-14",
+    "livrosEmprestados": [],
+    "id": 14,
+    "nome": "Lucas",
+    "cpf": "444.555.666-77",
+    "idade": 22,
+    "sobrenome": "Pereira",
+    "email": "lucas@email.com",
+    "senha": "l12"
+  },
+  {
+    "carteirinha": "CART-15",
+    "livrosEmprestados": [],
+    "id": 15,
+    "nome": "Mariana",
+    "cpf": "555.666.777-88",
+    "idade": 28,
+    "sobrenome": "Costa",
+    "email": "mariana@email.com",
+    "senha": "m45"
+  },
+  {
+    "carteirinha": "CART-0",
+    "livrosEmprestados": [],
+    "id": 0,
+    "nome": "Luiz",
+    "cpf": "04923370800",
+    "idade": 18,
+    "sobrenome": "Pasteur ",
+    "email": "luiz@gmail.com",
+    "senha": "luizmaninho"
+  }
+]
