@@ -16,14 +16,10 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
     ArrayList<Cliente> listaClientes = new ArrayList<>();
     ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
 
-    // Construtor: Assim que o programa iniciar, ele carrega os dados do JSON
     public BibliotecaService() {
         carregarDados();
     }
 
-    // ==========================================
-    // MÉTODOS DE ARQUIVO JSON
-    // ==========================================
     private void salvarDados() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -56,6 +52,9 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
                 Type tipoListaLivros = new TypeToken<ArrayList<Livros>>() {
                 }.getType();
                 listaLivros = gson.fromJson(new FileReader(arquivoLivros), tipoListaLivros);
+                if (listaLivros == null) {
+                    listaLivros = new ArrayList<>();
+                }
             } else {
                 listaLivros.add(new Livros("O Senhor dos Anéis", "J.R.R. Tolkien", "29/07/1954"));
             }
@@ -64,6 +63,9 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
                 Type tipoListaClientes = new TypeToken<ArrayList<Cliente>>() {
                 }.getType();
                 listaClientes = gson.fromJson(new FileReader(arquivoClientes), tipoListaClientes);
+                if (listaClientes == null) {
+                    listaClientes = new ArrayList<>();
+                }
             } else {
                 listaClientes.add(new Cliente("João", "111.222.333-44", 25, "Silva", "joao@email.com", "senha123"));
             }
@@ -72,10 +74,14 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
                 Type tipoListaFuncionarios = new TypeToken<ArrayList<Funcionario>>() {
                 }.getType();
                 listaFuncionarios = gson.fromJson(new FileReader(arquivoFuncionarios), tipoListaFuncionarios);
+                if (listaFuncionarios == null) {
+                    listaFuncionarios = new ArrayList<>();
+                }
             } else {
                 listaFuncionarios.add(new Funcionario("Maria", "999.888.777-66", 30, "Souza", "maria@biblioteca.com", "admin", "Bibliotecária"));
             }
 
+            atualizarContadores();
             salvarDados();
 
         } catch (Exception e) {
@@ -83,9 +89,35 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
         }
     }
 
-    // ==========================================
-    // SEUS MÉTODOS ORIGINAIS
-    // ==========================================
+    private void atualizarContadores() {
+        int maiorIdPessoa = -1;
+
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getId() > maiorIdPessoa) {
+                maiorIdPessoa = cliente.getId();
+            }
+        }
+
+        for (Funcionario funcionario : listaFuncionarios) {
+            if (funcionario.getId() > maiorIdPessoa) {
+                maiorIdPessoa = funcionario.getId();
+            }
+        }
+
+        Pessoa.setContadorId(maiorIdPessoa + 1);
+
+        int maiorIdLivro = 0;
+
+        for (Livros livro : listaLivros) {
+            if (livro.getId() > maiorIdLivro) {
+                maiorIdLivro = livro.getId();
+            }
+        }
+
+        Livros.setContadorId(maiorIdLivro + 1);
+    }
+
+
 
     @Override
     public void listarLivros() {
@@ -93,7 +125,8 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
         for (Livros listaLivro : listaLivros) {
             System.out.println("Livros:" + listaLivro.getTitulo());
             System.out.println("Autor:" + listaLivro.getAutor());
-            System.out.println("Disponibilidade:" + listaLivro.isStatus());
+            System.out.println("Disponibilidade:" + (listaLivro.isStatus() ? "Disponível" : "Indisponivel"));
+            System.out.println("----------------");
         }
     }
 
@@ -121,17 +154,17 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
                 System.out.println("Sistema encerrado.");
                 return;
             }
-            for (int i = 0; i < listaLivros.size(); i++) {
-                if (listaLivros.get(i).getTitulo().equalsIgnoreCase(tituloDigitado)) {
-                    if (listaLivros.get(i).isStatus()) {
-                        listaLivros.get(i).setStatus(false);
-                        clienteAchado.getLivrosEmprestados().add(listaLivros.get(i));
-                        System.out.println("Livro " + listaLivros.get(i).getTitulo() + " emprestado com sucesso para " + clienteAchado.getNome() + "!");
+            for (Livros livro : listaLivros) {
+                if (livro.getTitulo().equalsIgnoreCase(tituloDigitado)) {
+                    if (livro.isStatus()) {
+                        livro.setStatus(false);
+                        clienteAchado.getLivrosEmprestados().add(livro);
+                        System.out.println("Livro " + livro.getTitulo() + " emprestado com sucesso para " + clienteAchado.getNome() + "!");
 
                         salvarDados(); // CHAMA O JSON AQUI!
                         return;
                     } else {
-                        System.out.println("Livro " + listaLivros.get(i).getTitulo() + " já esta emprestado");
+                        System.out.println("Livro " + livro.getTitulo() + " já esta emprestado");
                         return;
                     }
                 }
@@ -158,6 +191,7 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
                     return;
                 }
             }
+            System.out.println("Livro não encontrado. Digite 'sair' para voltar ou tente outro título.");
         }
     }
 
@@ -189,10 +223,15 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
             for (Livros listaLivro : listaLivros) {
                 if (listaLivro.getTitulo().equalsIgnoreCase(tituloDigitado)) {
                     if (!listaLivro.isStatus()) {
-                        listaLivro.setStatus(true);
+                        boolean livroPertenceAoCliente = clienteAchado.getLivrosEmprestados()
+                                .removeIf(l -> l.getTitulo().equalsIgnoreCase(tituloDigitado));
 
-                        // Alteração mínima para o JSON funcionar: removemos verificando o título
-                        clienteAchado.getLivrosEmprestados().removeIf(l -> l.getTitulo().equalsIgnoreCase(tituloDigitado));
+                        if (!livroPertenceAoCliente) {
+                            System.out.println("Este livro não está emprestado para " + clienteAchado.getNome() + ".");
+                            return;
+                        }
+
+                        listaLivro.setStatus(true);
 
                         System.out.println("Livro " + listaLivro.getTitulo() + " devolvido com sucesso por " + clienteAchado.getNome() + "!");
 
@@ -215,6 +254,13 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
 
         System.out.println("Qual autor do livro que deseja cadastrar?!");
         String autor = sc.nextLine();
+
+        for (Livros livro : listaLivros) {
+            if (livro.getTitulo().equalsIgnoreCase(nome) && livro.getAutor().equalsIgnoreCase(autor)) {
+                System.out.println("Este livro já está cadastrado no acervo.");
+                return;
+            }
+        }
 
         java.time.LocalDate dataValida = null;
         String anoPublicacao = ""; // Aqui vai ficar a data formatada final (ex: 10/09/2007)
@@ -329,6 +375,17 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
         System.out.print("Qual o email do cliente? ");
         String email = sc.nextLine();
 
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getCpf().equalsIgnoreCase(cpf)) {
+                System.out.println("Já existe um cliente cadastrado com este CPF.");
+                return;
+            }
+            if (cliente.getEmail().equalsIgnoreCase(email)) {
+                System.out.println("Já existe um cliente cadastrado com este email.");
+                return;
+            }
+        }
+
         System.out.print("Crie uma senha para o cliente: ");
         String senha = sc.nextLine();
 
@@ -367,6 +424,17 @@ public class BibliotecaService implements Leitura, Movimentar, GerenciamentoAcer
 
         System.out.print("Qual o email do funcionário? ");
         String email = sc.nextLine();
+
+        for (Funcionario funcionario : listaFuncionarios) {
+            if (funcionario.getCpf().equalsIgnoreCase(cpf)) {
+                System.out.println("Já existe um funcionário cadastrado com este CPF.");
+                return;
+            }
+            if (funcionario.getEmail().equalsIgnoreCase(email)) {
+                System.out.println("Já existe um funcionário cadastrado com este email.");
+                return;
+            }
+        }
 
         System.out.print("Crie uma senha para o funcionário: ");
         String senha = sc.nextLine();

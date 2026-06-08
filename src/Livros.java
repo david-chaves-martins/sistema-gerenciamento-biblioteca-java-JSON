@@ -19,6 +19,10 @@ public class Livros {
         return id;
     }
 
+    public static void setContadorId(int contadorId) {
+        Livros.contadorId = contadorId;
+    }
+
     public String getTitulo() {
         return titulo;
     }
